@@ -1,7 +1,7 @@
 import axios from 'axios';
 
 const api = axios.create({
-  baseURL: 'https://zora-undedicated-janean.ngrok-free.dev/api',
+  baseURL: 'http://localhost:5000/api',
   withCredentials: true,
   headers: { 'Content-Type': 'application/json', "ngrok-skip-browser-warning": "true" },
 });
@@ -13,4 +13,6 @@ export default {
   followUp: () => api.get('/telecaller/follow-up'),
   converted: () => api.get('/telecaller/converted'),
   closeCall: (callingNumberId, data) => api.post(`/telecaller/calls/${callingNumberId}/close`, data),
+  previousCall: (callingNumberId) => api.get(`/telecaller/calls/${callingNumberId}/previous-call`),
+  updateLeadName: (callingNumberId, name) => api.patch(`/telecaller/calls/${callingNumberId}/name`, { name }),
 };
