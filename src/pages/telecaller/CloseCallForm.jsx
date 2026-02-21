@@ -88,6 +88,10 @@ export default function CloseCallForm({ callingNumberId, onClose, onCancel }) {
         return;
       }
     }
+    if (!callingNumberId) {
+      setError('Invalid lead. Please close and try again.');
+      return;
+    }
     setSubmitting(true);
     try {
       const body = {
@@ -102,9 +106,9 @@ export default function CloseCallForm({ callingNumberId, onClose, onCancel }) {
         converted: outcome === 'connected' ? converted : undefined,
       };
       await telecallerApi.closeCall(callingNumberId, body);
-      onClose();
+      if (typeof onClose === 'function') onClose();
     } catch (err) {
-      setError(err.response?.data?.message || 'Failed to close call');
+      setError(err?.response?.data?.message || 'Failed to close call');
     } finally {
       setSubmitting(false);
     }
@@ -133,8 +137,10 @@ export default function CloseCallForm({ callingNumberId, onClose, onCancel }) {
   const choiceBtn =
     'flex-1 py-4 px-4 rounded-xl border-2 text-base font-semibold transition-colors ' + btnTap;
 
+  if (!callingNumberId) return null;
+
   return (
-    <div className="fixed inset-0 bg-black/70 flex items-end sm:items-center justify-center z-[200] p-0 sm:p-4" onClick={onCancel}>
+    <div className="fixed inset-0 bg-black/70 flex items-end sm:items-center justify-center z-[200] p-0 sm:p-4" onClick={() => typeof onCancel === 'function' && onCancel()}>
       <div
         className="bg-surface rounded-t-2xl sm:rounded-2xl w-full max-w-[420px] max-h-[90vh] sm:max-h-[85vh] flex flex-col shadow-xl"
         onClick={(e) => e.stopPropagation()}
@@ -153,7 +159,7 @@ export default function CloseCallForm({ callingNumberId, onClose, onCancel }) {
           {!previousCallLoading && previousCall && (
             <button
               type="button"
-              onClick={() => setPrevCallExpanded((e) => !e)}
+              onClick={() => setPrevCallExpanded((prev) => !prev)}
               className="w-full text-left p-3 bg-slate-100 border border-slate-200 rounded-xl flex items-center justify-between gap-2"
             >
               <span className="flex items-center gap-2 text-slate-700 text-sm font-medium">
@@ -414,7 +420,7 @@ export default function CloseCallForm({ callingNumberId, onClose, onCancel }) {
             ) : null}
             <button
               type="button"
-              onClick={onCancel}
+              onClick={() => typeof onCancel === 'function' && onCancel()}
               className="py-3.5 px-4 bg-white border border-border rounded-xl font-medium text-slate-700"
             >
               Cancel

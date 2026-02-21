@@ -85,7 +85,7 @@ export default function CallList({ list, tab, onOpenCloseForm, onRefresh }) {
           {showCallAndClose && editingId !== item._id && (
             <div className="flex gap-2 flex-wrap">
               <a href={`tel:${item.phone}`} className={`${btnBase} bg-green-500 text-white`}><Phone size={18} /></a>
-              <button type="button" onClick={() => onOpenCloseForm(item._id)} className={`${btnBase} bg-primary text-white`}>
+              <button type="button" onClick={() => item?._id != null && typeof onOpenCloseForm === 'function' && onOpenCloseForm(item._id)} className={`${btnBase} bg-primary text-white`}>
                 <ClipboardList size={18} />
               </button>
             </div>
@@ -133,7 +133,7 @@ export default function CallList({ list, tab, onOpenCloseForm, onRefresh }) {
               <Phone size={20} />
               Call now
             </a>
-            <button type="button" onClick={() => onOpenCloseForm(firstLead._id)} className={`${btnBase} flex-1 min-w-[140px] justify-center bg-primary text-white py-4 text-base`}>
+            <button type="button" onClick={() => firstLead?._id != null && typeof onOpenCloseForm === 'function' && onOpenCloseForm(firstLead._id)} className={`${btnBase} flex-1 min-w-[140px] justify-center bg-primary text-white py-4 text-base`}>
               <ClipboardList size={20} />
               Close call
             </button>
