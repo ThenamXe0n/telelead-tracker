@@ -1,7 +1,7 @@
 import axios from 'axios';
 
 const api = axios.create({
-  baseURL: 'https://zora-undedicated-janean.ngrok-free.dev/api',
+  baseURL: 'https://server-za3w.onrender.com/api',
   withCredentials: true,
   headers: { 'Content-Type': 'application/json', "ngrok-skip-browser-warning": "true" },
 });
