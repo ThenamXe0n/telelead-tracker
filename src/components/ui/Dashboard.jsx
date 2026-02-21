@@ -3,7 +3,7 @@ function StatsTile({ icon: Icon, label, value, variant = 'default' }) {
     const baseClasses = 'border border-border rounded-xl p-5 min-w-[140px]';
   
     return (
-      <div className={`${baseClasses}  bg-cyan-900 text-white`}>
+      <div className={`${baseClasses}  bg-cyan-900 text-white flex gap-2 items-center`}>
         <div className="text-muted text-sm flex items-center gap-1.5">
           {Icon && (
             <Icon
@@ -25,7 +25,7 @@ function StatsTile({ icon: Icon, label, value, variant = 'default' }) {
           )}
           <span className={'text-white'}>{label}</span>
         </div>
-        <div className={`text-3xl font-bold ${isPrimary ? 'text-white' : ''}`}>{value}</div>
+        <div className={`text-md font-semibold  ${isPrimary ? 'text-white' : ''}`}>{value}</div>
       </div>
     );
   }

@@ -25,11 +25,11 @@ export default function CallList({ list, tab, onOpenCloseForm }) {
                 <div className="flex gap-2 flex-wrap">
                   <a href={`tel:${item.phone}`} className={`${btnBase} bg-green-500 text-white`}>
                     <Phone size={18} />
-                    Call
+                    {/* Call */}
                   </a>
                   <button type="button" onClick={() => onOpenCloseForm(item._id)} className={`${btnBase} bg-primary text-white`}>
                     <ClipboardList size={18} />
-                    Close call
+                    {/* Close call */}
                   </button>
                 </div>
               )}
