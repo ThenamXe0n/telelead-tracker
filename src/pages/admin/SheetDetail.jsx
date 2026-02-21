@@ -127,7 +127,6 @@ export default function SheetDetail() {
           <span>Assigned: <strong>{stats.assigned}</strong></span>
           <span>Follow-up: <strong>{stats.followUp}</strong></span>
           <span>Converted: <strong>{stats.converted}</strong></span>
-          <span>Dropped: <strong>{stats.dropped}</strong></span>
         </div>
       )}
       <div className="flex flex-wrap gap-4 mb-6">

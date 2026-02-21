@@ -1,13 +1,11 @@
 import { useState, useEffect } from 'react';
 import telecallerApi from '../../api/telecaller';
-import attendanceApi from '../../api/attendance';
+// import attendanceApi from '../../api/attendance'; // attendance feature – uncomment when needed
 import CallList from './CallList';
 import CloseCallForm from './CloseCallForm';
-import { LogIn, LogOut, Clock } from 'lucide-react';
+// import { LogIn, LogOut, Clock } from 'lucide-react'; // attendance
 
-function todayISO() {
-  return new Date().toISOString().slice(0, 10);
-}
+// function todayISO() { return new Date().toISOString().slice(0, 10); } // attendance
 
 export default function Dashboard() {
   const [tab, setTab] = useState('assigned');
@@ -15,27 +13,12 @@ export default function Dashboard() {
   const [loading, setLoading] = useState(true);
   const [closingId, setClosingId] = useState(null);
   const [counts, setCounts] = useState({ assigned: 0, followUp: 0, converted: 0 });
-  const [todayAttendance, setTodayAttendance] = useState(null);
-  const [punchLoading, setPunchLoading] = useState(false);
+  // const [todayAttendance, setTodayAttendance] = useState(null); // attendance
+  // const [punchLoading, setPunchLoading] = useState(false); // attendance
 
-  const loadTodayAttendance = () => {
-    attendanceApi.list({ from: todayISO(), to: todayISO() })
-      .then((res) => {
-        const arr = res.data.attendance || [];
-        setTodayAttendance(arr[0] || null);
-      })
-      .catch(() => setTodayAttendance(null));
-  };
-
-  const handlePunch = (action) => {
-    setPunchLoading(true);
-    attendanceApi.punch(action)
-      .then(() => loadTodayAttendance())
-      .catch(() => {})
-      .finally(() => setPunchLoading(false));
-  };
-
-  const formatTime = (d) => (d ? new Date(d).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' }) : '—');
+  // const loadTodayAttendance = () => { ... }; // attendance – uncomment when needed
+  // const handlePunch = (action) => { ... }; // attendance – uncomment when needed
+  // const formatTime = (d) => ...; // attendance
 
   const fetchCounts = () => {
     telecallerApi.counts()
@@ -56,7 +39,7 @@ export default function Dashboard() {
 
   useEffect(() => {
     fetchCounts();
-    loadTodayAttendance();
+    // loadTodayAttendance(); // attendance – uncomment when needed
   }, []);
 
   useEffect(() => {
@@ -82,37 +65,11 @@ export default function Dashboard() {
 
   return (
     <div className="p-4">
-      <div className="mb-5 p-3 bg-surface border border-border rounded-xl flex flex-wrap items-center justify-between gap-3">
-        <div className="flex items-center gap-2 text-sm text-muted">
-          <Clock size={16} />
-          <span>Today&apos;s attendance</span>
-          {todayAttendance && (
-            <span className="text-slate-700">
-              In: {formatTime(todayAttendance.checkIn)} · Out: {formatTime(todayAttendance.checkOut)}
-            </span>
-          )}
-        </div>
-        <div className="flex gap-2">
-          <button
-            type="button"
-            disabled={punchLoading || !!todayAttendance?.checkIn}
-            onClick={() => handlePunch('checkIn')}
-            className="flex items-center gap-1.5 py-2 px-3.5 bg-green-600 text-white border-0 rounded-lg text-sm font-medium disabled:opacity-50 disabled:cursor-not-allowed"
-          >
-            <LogIn size={16} />
-            Punch In
-          </button>
-          <button
-            type="button"
-            disabled={punchLoading || !todayAttendance?.checkIn || !!todayAttendance?.checkOut}
-            onClick={() => handlePunch('checkOut')}
-            className="flex items-center gap-1.5 py-2 px-3.5 bg-slate-600 text-white border-0 rounded-lg text-sm font-medium disabled:opacity-50 disabled:cursor-not-allowed"
-          >
-            <LogOut size={16} />
-            Punch Out
-          </button>
-        </div>
+      {/* Attendance block – uncomment when needed
+      <div className="mb-5 p-3 bg-surface border border-border rounded-xl ...">
+        ... Punch In / Punch Out ...
       </div>
+      */}
       <div className="flex gap-2.5 mb-5 flex-wrap">
         {tabs.map((t) => (
           <button key={t.key} type="button" className={tabClass(tab === t.key)} onClick={() => setTab(t.key)}>

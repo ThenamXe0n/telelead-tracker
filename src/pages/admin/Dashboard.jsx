@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
-import { Filter, Search, Target, Clock3, UserCheck, RefreshCcw, CheckCircle2, XCircle, ListChecks } from 'lucide-react';
+import { Filter, Search, Target, Clock3, UserCheck, RefreshCcw, CheckCircle2, ListChecks } from 'lucide-react';
 import statsApi from '../../api/stats';
 import StatsTile from '../../components/ui/Dashboard';
 
@@ -32,7 +32,6 @@ export default function Dashboard() {
   const tableTd = 'py-2.5 px-2.5 border-b border-border text-sm';
   const statusBadge = (status) => {
     if (status === 'converted') return 'px-2 py-0.5 rounded-md text-xs bg-green-500/15 text-green-600';
-    if (status === 'dropped') return 'px-2 py-0.5 rounded-md text-xs bg-red-500/10 text-red-500';
     return 'px-2 py-0.5 rounded-md text-xs bg-surface text-slate-900';
   };
 
@@ -60,7 +59,6 @@ export default function Dashboard() {
           { key: 'assigned', label: 'Assigned', icon: UserCheck, value: stats.assigned, variant: 'default' },
           { key: 'followUp', label: 'Follow-up', icon: RefreshCcw, value: stats.followUp, variant: 'default' },
           { key: 'converted', label: 'Converted', icon: CheckCircle2, value: stats.converted, variant: 'default' },
-          { key: 'dropped', label: 'Dropped', icon: XCircle, value: stats.dropped, variant: 'default' },
         ].map((tile) => (
           <StatsTile
             key={tile.key}

@@ -9,7 +9,6 @@ const tdClass = 'py-2.5 px-2.5 border-b border-border text-sm';
 const tabClass = (active) => `py-2.5 px-4 border-b-2 bg-transparent text-sm cursor-pointer ${active ? 'border-primary text-primary font-semibold' : 'border-transparent text-muted font-medium'}`;
 const statusBadge = (status) => {
   if (status === 'converted') return 'px-2 py-0.5 rounded-md text-xs bg-green-500/15 text-green-600';
-  if (status === 'dropped') return 'px-2 py-0.5 rounded-md text-xs bg-red-500/10 text-red-500';
   return 'px-2 py-0.5 rounded-md text-xs bg-surface text-slate-900';
 };
 
@@ -92,7 +91,7 @@ export default function LeadTracking() {
       <section className={cardClass}>
         <h2 className="m-0 mb-4 text-lg">Leads by telecaller</h2>
         <p className="text-muted text-sm mb-4">
-          Pending (assigned + follow-up), converted, and dropped counts for each telecaller. Converted = closed as converted by that telecaller.
+          Pending (assigned + follow-up) and converted counts for each telecaller. After 7 calls, leads move to bulk for reassignment.
         </p>
         <div className="overflow-x-auto">
           <table className="w-full border-collapse">
@@ -102,7 +101,6 @@ export default function LeadTracking() {
                 <th className={thClass}>Assigned</th>
                 <th className={thClass}>Follow-up</th>
                 <th className={thClass}>Converted</th>
-                <th className={thClass}>Dropped</th>
                 <th className={thClass}>Total</th>
               </tr>
             </thead>
@@ -116,13 +114,12 @@ export default function LeadTracking() {
                   <td className={tdClass}>{t.assigned}</td>
                   <td className={tdClass}>{t.followUp}</td>
                   <td className={`${tdClass} text-green-600`}>{t.converted}</td>
-                  <td className={tdClass}>{t.dropped}</td>
                   <td className={`${tdClass} font-semibold`}>{t.total}</td>
                 </tr>
               ))}
               {telecallers.length === 0 && (
                 <tr>
-                  <td colSpan={6} className={`${tdClass} text-muted text-center`}>No telecallers</td>
+                  <td colSpan={5} className={`${tdClass} text-muted text-center`}>No telecallers</td>
                 </tr>
               )}
             </tbody>

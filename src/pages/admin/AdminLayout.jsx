@@ -1,13 +1,14 @@
 import { Routes, Route, NavLink, useNavigate } from 'react-router-dom';
 import { useAuth } from '../../context/AuthContext';
-import { LayoutDashboard, Users, FileSpreadsheet, FileText, Target, LogOut, User, CalendarCheck } from 'lucide-react';
+import { LayoutDashboard, Users, FileSpreadsheet, FileText, Target, LogOut, User } from 'lucide-react';
+// import { CalendarCheck } from 'lucide-react'; // attendance
 import Dashboard from './Dashboard';
 import Telecallers from './Telecallers';
 import Sheets from './Sheets';
 import SheetDetail from './SheetDetail';
 import Scripts from './Scripts';
 import LeadTracking from './LeadTracking';
-import Attendance from './Attendance';
+// import Attendance from './Attendance'; // attendance feature – uncomment when needed
 import logo from '/assets/logo512.png';
 
 export default function AdminLayout() {
@@ -51,10 +52,12 @@ export default function AdminLayout() {
             <FileText size={18} />
             Scripts
           </NavLink>
+          {/* Attendance – uncomment when needed
           <NavLink to="/admin/attendance" className={({ isActive }) => linkClass(isActive)}>
             <CalendarCheck size={18} />
             Attendance
           </NavLink>
+          */}
         </nav>
         <div className='flex items-center gap-6 '> <span className="ml-auto flex items-center gap-2.5 text-slate-600">
           <User size={16} />
@@ -78,7 +81,7 @@ export default function AdminLayout() {
           <Route path="sheets/:id" element={<SheetDetail />} />
           <Route path="leads" element={<LeadTracking />} />
           <Route path="scripts" element={<Scripts />} />
-          <Route path="attendance" element={<Attendance />} />
+          {/* <Route path="attendance" element={<Attendance />} /> */}
         </Routes>
       </main>
     </div>
