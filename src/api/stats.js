@@ -1,7 +1,8 @@
 import axios from 'axios';
+import { baseURL } from '../constant';
 
 const api = axios.create({
-  baseURL: 'https://server-za3w.onrender.com/api',
+  baseURL,
   withCredentials: true,
   headers: { 'Content-Type': 'application/json', "ngrok-skip-browser-warning": "true" },
 });

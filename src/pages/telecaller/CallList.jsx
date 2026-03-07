@@ -9,6 +9,8 @@ export default function CallList({ list, tab, onOpenCloseForm, onRefresh }) {
   const [editingName, setEditingName] = useState('');
   const [savingName, setSavingName] = useState(false);
 
+  console.log("list",list);
+
   const isAssignedOrPending = tab === 'assigned' || tab === 'pending';
   const isNoOfCallsOrInterested = tab === 'no-of-calls' || tab === 'interested';
   const useCallNowFlow = isAssignedOrPending;
