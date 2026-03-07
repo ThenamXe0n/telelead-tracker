@@ -12,7 +12,7 @@ export default function Dashboard() {
   const [list, setList] = useState([]);
   const [loading, setLoading] = useState(true);
   const [closingId, setClosingId] = useState(null);
-  const [counts, setCounts] = useState({ assigned: 0, followUp: 0, converted: 0, notInterested: 0 });
+  const [counts, setCounts] = useState({ assigned: 0, followUp: 0, converted: 0, interested: 0, notInterested: 0 });
   // const [todayAttendance, setTodayAttendance] = useState(null); // attendance
   // const [punchLoading, setPunchLoading] = useState(false); // attendance
 
@@ -22,16 +22,17 @@ export default function Dashboard() {
 
   const fetchCounts = () => {
     telecallerApi.counts()
-      .then((res) => setCounts(res.data.counts || { assigned: 0, followUp: 0, converted: 0, notInterested: 0 }))
-      .catch(() => setCounts({ assigned: 0, followUp: 0, converted: 0, notInterested: 0 }));
+      .then((res) => setCounts(res.data.counts || { assigned: 0, followUp: 0, converted: 0, interested: 0, notInterested: 0 }))
+      .catch(() => setCounts({ assigned: 0, followUp: 0, converted: 0, interested: 0, notInterested: 0 }));
   };
 
   const fetchList = () => {
     setLoading(true);
     const api = tab === 'assigned' || tab === 'pending' ? telecallerApi.assigned
-      : tab === 'follow-up' ? telecallerApi.followUp
-      : tab === 'not-interested' ? telecallerApi.notInterested
-      : telecallerApi.converted;
+      : tab === 'no-of-calls' ? telecallerApi.followUp
+      : tab === 'converted' ? telecallerApi.converted
+      : tab === 'interested' ? telecallerApi.interested
+      : telecallerApi.notInterested;
     api()
       .then((res) => setList(res.data.list || []))
       .catch(() => setList([]))
@@ -55,8 +56,9 @@ export default function Dashboard() {
 
   const tabs = [
     { key: 'assigned', label: 'Assigned', countKey: 'assigned', sublabel: 'remaining' },
-    { key: 'No of calls', label: 'No of calls', countKey: 'followUp', sublabel: '' },
+    { key: 'no-of-calls', label: 'No of calls', countKey: 'followUp', sublabel: 'followups / callback' },
     { key: 'converted', label: 'Converted', countKey: 'converted', sublabel: '' },
+    { key: 'interested', label: 'Interested', countKey: 'interested', sublabel: '' },
     { key: 'not-interested', label: 'Not Interested', countKey: 'notInterested', sublabel: '' },
   ];
 

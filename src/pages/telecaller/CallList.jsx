@@ -10,7 +10,7 @@ export default function CallList({ list, tab, onOpenCloseForm, onRefresh }) {
   const [savingName, setSavingName] = useState(false);
 
   const isAssignedOrPending = tab === 'assigned' || tab === 'pending';
-  const isFollowUp = tab === 'follow-up';
+  const isNoOfCallsOrInterested = tab === 'no-of-calls' || tab === 'interested';
   const useCallNowFlow = isAssignedOrPending;
   const firstLead = useCallNowFlow && list.length > 0 ? list[0] : null;
   const remainingList = useCallNowFlow && list.length > 1 ? list.slice(1) : [];
@@ -71,14 +71,14 @@ export default function CallList({ list, tab, onOpenCloseForm, onRefresh }) {
             ) : (
               <div className="flex items-center gap-1.5 mt-0.5">
                 <span className={`text-sm ${displayName(item) === 'Unknown' ? 'text-amber-600 italic' : 'text-muted'}`}>{displayName(item)}</span>
-                {(isAssignedOrPending || isFollowUp) && (
+                {(isAssignedOrPending || isNoOfCallsOrInterested) && (
                   <button type="button" onClick={() => startEdit(item)} className="p-1 rounded text-slate-500 hover:bg-slate-200" aria-label="Edit name" title="Edit name (e.g. after asking on call)">
                     <Pencil size={14} />
                   </button>
                 )}
               </div>
             )}
-            {isFollowUp && item.followUpDate && (
+            {isNoOfCallsOrInterested && item.followUpDate && (
               <div className="text-xs text-amber-500 mt-0.5">Follow-up: {new Date(item.followUpDate).toLocaleDateString()}</div>
             )}
           </div>
@@ -178,7 +178,7 @@ export default function CallList({ list, tab, onOpenCloseForm, onRefresh }) {
   return (
     <div>
       {list.map((item) => (
-        <LeadRow key={item._id} item={item} showCallAndClose={isFollowUp} compact={false} />
+        <LeadRow key={item._id} item={item} showCallAndClose={isNoOfCallsOrInterested} compact={false} />
       ))}
     </div>
   );
