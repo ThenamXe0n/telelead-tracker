@@ -12,6 +12,7 @@ export default {
   pending: () => api.get('/telecaller/pending'),
   followUp: () => api.get('/telecaller/follow-up'),
   converted: () => api.get('/telecaller/converted'),
+  notInterested: () => api.get('/telecaller/not-interested'),
   closeCall: (callingNumberId, data) => api.post(`/telecaller/calls/${callingNumberId}/close`, data),
   previousCall: (callingNumberId) => api.get(`/telecaller/calls/${callingNumberId}/previous-call`),
   updateLeadName: (callingNumberId, name) => api.patch(`/telecaller/calls/${callingNumberId}/name`, { name }),
